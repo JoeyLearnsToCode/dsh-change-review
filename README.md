@@ -1,4 +1,4 @@
-# dsh-diff-review
+# dsh-change-review
 
 DeepSeek Harness（DSH）**会话修改审查**插件：自动追踪会话内的文件写入/编辑操作，在会话视图中以 diff 对比形式展示，支持颜色自定义、实时推送、会话隔离与子代理聚合。
 
@@ -21,7 +21,7 @@ DeepSeek Harness（DSH）**会话修改审查**插件：自动追踪会话内的
 ### 方式一：`dsh plugin add`（npm 发布后）
 
 ```sh
-dsh plugin --profile web add dsh-diff-review
+dsh plugin --profile web add dsh-change-review
 ```
 
 ### 方式二：手动部署
@@ -31,9 +31,9 @@ dsh plugin --profile web add dsh-diff-review
 ```yaml
 - insert:
     - id: diff-review
-      name: 'dsh-diff-review'
+      name: 'dsh-change-review'
     - id: ui-diff-review
-      name: 'dsh-diff-review'
+      name: 'dsh-change-review'
 ```
 
 2. 重启 dsh web
