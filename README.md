@@ -1,32 +1,35 @@
 # dsh-change-review
 
-DeepSeek Harness（DSH）**会话修改审查**插件：自动追踪会话内的文件写入/编辑操作，在会话视图中以 diff 对比形式展示，支持颜色自定义、实时推送、会话隔离与子代理聚合。
+A **session change-review plugin** for DeepSeek Harness (DSH): automatically tracks file `write`/`edit` operations inside your session and renders them as line-level diffs with customizable colors — session-isolated, subagent-aggregated, and pushed live via SSE.
 
-> 一个包同时承载 Host 逻辑与浏览器 UI（`dsh.bundle` + `dsh.client` 双 manifest）。
+> One package carries both the Host logic and the browser UI (`dsh.bundle` + `dsh.client` manifests).
 
-## ✨ 功能
+[中文说明](README.zh.md)
 
-| 功能 | 说明 |
+## ✨ Features
+
+| Feature | Description |
 | --- | --- |
-| 自动追踪 | 监听 `write` / `edit` 工具调用，记录修改前后内容与时间 |
-| diff 对比 | LCS 行级 diff：新增（绿）/ 删除（红）/ 上下文（灰），含新旧行号 |
-| 会话隔离 | 每个会话只展示自己的修改，切换会话即切换审查内容 |
-| 子代理聚合 | 子代理（subagent）的修改自动聚合到根父会话 |
-| 实时推送 | SSE 服务端推送，修改文件后角标/列表即时刷新（零轮询） |
-| 数量角标 | 「审查」标签显示待审文件数，背景/文字颜色可自定义 |
-| 颜色自定义 | 8 项颜色在 **设置 → 修改审查** 页调整，localStorage 持久化 |
+| Auto tracking | Listens to `write` / `edit` tool calls, records before/after content and timestamps |
+| Diff view | LCS line-level diff: added (green) / removed (red) / context (gray) lines with both-side line numbers |
+| Session isolation | Each session reviews only its own changes; switching sessions switches the review |
+| Subagent aggregation | Changes made by subagents are aggregated into the root parent session |
+| Live updates | SSE server push — the badge and list refresh instantly when files change (zero polling) |
+| Count badge | The 「审查」(Review) tab shows the pending file count; badge background/text colors are customizable |
+| Color customization | 8 colors configurable under **Settings → 修改审查** (Review), persisted in localStorage |
+| Clean sidebar | Hides the Cordis plugin run indicator (`cordis-panel`) from the left sidebar |
 
-## 📦 安装
+## 📦 Install
 
-### 方式一：`dsh plugin add`（npm 发布后）
+### Option A: `dsh plugin add` (after npm publish)
 
 ```sh
 dsh plugin --profile web add dsh-change-review
 ```
 
-### 方式二：手动部署
+### Option B: manual deployment
 
-1. 将本仓库（或 `lib/` 内容）放入 harness 可解析的 `node_modules` 并在 profile 的 `cordis.patch.yml` 注册：
+1. Make the package resolvable by the harness (e.g. place it in `node_modules`) and register it in the profile's `cordis.patch.yml`:
 
 ```yaml
 - insert:
@@ -36,56 +39,56 @@ dsh plugin --profile web add dsh-change-review
       name: 'dsh-change-review'
 ```
 
-2. 重启 dsh web
+2. Restart dsh web
 
-> 本插件默认在 Web profile（`dsh --profile web`）下运行。
+> This plugin targets the Web profile (`dsh --profile web`).
 
-## 🚀 使用
+## 🚀 Usage
 
-1. 打开会话，点击会话顶部视图标签 **「审查」**（位于「对话」之后、「轨迹」之前）
-2. 左侧文件列表（写入/编辑次数、~新增/~删除统计），右侧选中文件的 diff 对比
-3. 文件被修改时角标**实时 +1**；顶部「↻」刷新、「清空」清除当前会话记录
-4. 颜色：**设置 → 修改审查**（8 项 + 深浅色预设 + 恢复默认），改动自动保存，刷新保留
+1. Open a session and click the **「审查」(Review)** view tab (after「对话」Chat, before「轨迹」Trajectory)
+2. Left: file list (write/edit counts, ~added/~removed stats); right: the selected file's diff
+3. The badge increments **in real time** when files change; top bar: **↻** refresh, **清空** clear the current session's records
+4. Colors: **Settings → 修改审查** (8 items + light/dark presets + restore defaults), auto-saved, survives refresh
 
-## 🎨 颜色配置
+## 🎨 Color Configuration
 
-| 配置项 | 键名 | 浅色默认 | 深色预设 |
+| Item | Key | Light default | Dark preset |
 | --- | --- | --- | --- |
-| 新增行背景 | `addBg` | `#e6ffec` | `#10251c` |
-| 新增行文字 | `addFg` | `#1a7f37` | `#7ee787` |
-| 删除行背景 | `delBg` | `#ffebe9` | `#2d1415` |
-| 删除行文字 | `delFg` | `#cf222e` | `#ffa198` |
-| 上下文背景 | `ctxBg` | `#f6f8fa` | `#161b22` |
-| 行号 / 标记 | `gutter` | `#57606a` | `#8b949e` |
-| 角标背景 | `badgeBg` | `#0969da` | `#4493f8` |
-| 角标文字 | `badgeFg` | `#ffffff` | `#0d1117` |
+| Added line background | `addBg` | `#e6ffec` | `#10251c` |
+| Added line text | `addFg` | `#1a7f37` | `#7ee787` |
+| Removed line background | `delBg` | `#ffebe9` | `#2d1415` |
+| Removed line text | `delFg` | `#cf222e` | `#ffa198` |
+| Context background | `ctxBg` | `#f6f8fa` | `#161b22` |
+| Line numbers / markers | `gutter` | `#57606a` | `#8b949e` |
+| Badge background | `badgeBg` | `#0969da` | `#4493f8` |
+| Badge text | `badgeFg` | `#ffffff` | `#0d1117` |
 
-## 🧠 行为说明
+## 🧠 Behavior Notes
 
-- **追踪范围**：本进程内所有会话的 `write`/`edit` 工具调用；按会话隔离，子代理改动沿 owner 链聚合到根父会话
-- **实时性**：Host 记录后经 SSE（`/diff-review/events`）推送，客户端只处理当前会话事件
-- **持久性**：颜色持久化（localStorage `dsh.diff-review.colors`）；审查记录为进程内状态，重启后重新累积
-- **容量保护**：单文件最多 100 次操作；单次内容截断 120KB；diff 单侧最多 1500 行
+- **Scope**: all `write`/`edit` tool calls in the current process, bucketed per session; subagent changes are aggregated up the owner chain to the root parent session
+- **Real time**: the Host pushes via SSE (`/diff-review/events`); the client only processes events for the current session
+- **Persistence**: colors persist (localStorage key `dsh.diff-review.colors`); review records are process-local and rebuild from new modifications after a restart
+- **Capacity guards**: max 100 ops per file; content truncated at 120KB per op; diff capped at 1500 lines per side
 
-## 🗂 架构
+## 🗂 Architecture
 
 ```
-Host（lib/index.js）
-  · tools/result 监听 → 按会话分桶记录
-  · LCS 行级 diff
-  · HTTP 路由：/diff-review/summary · /file · /clear（均带 ?session=）
-  · SSE：/diff-review/events
-        │  HTTP + SSE（同源）
-Browser UI（lib/client.js，__ModuleLoader__ bundle）
-  · 会话头部探针同步当前会话（隐藏）
-  · 「审查」视图标签 + 角标
-  · 设置页「修改审查」颜色自定义
-  · EventSource 实时订阅
+Host (lib/index.js)
+  · tools/result listener → per-session buckets
+  · LCS line diff
+  · HTTP routes: /diff-review/summary · /file · /clear (all with ?session=)
+  · SSE: /diff-review/events
+        │  HTTP + SSE (same origin)
+Browser UI (lib/client.js, __ModuleLoader__ bundle)
+  · hidden session probe syncs the current session
+  · 「审查」view tab + badge
+  · Settings page「修改审查」color customization
+  · EventSource live subscription
 ```
 
-## ⚖️ 免责声明
+## ⚖️ Disclaimer
 
-插件代码与你的 harness 进程同权限运行。使用前请审阅源码；收录于社区市场不构成安全背书。
+Plugin code runs with the same privileges as your harness process. Review the source before installing; inclusion in community markets is not a security endorsement.
 
 ## 📄 License
 
