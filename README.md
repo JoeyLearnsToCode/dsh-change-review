@@ -18,7 +18,7 @@ A **session change-review plugin** for DeepSeek Harness (DSH): automatically tra
 | Revert changes | Undo ONE specific change (later non-overlapping changes are kept) or the WHOLE file (restore the pre-session snapshot; a file created in-session is deleted) — writes directly to disk |
 | Per-turn review | Each turn's tail shows a card with THIS turn's changed files and expandable diffs (with per-op revert), distinct from the session-wide 「审查」tab |
 | Count badge | The 「审查」(Review) tab shows the pending file count; badge background/text colors are customizable |
-| Color customization | 8 colors configurable under **Settings → 修改审查** (Review), persisted in localStorage |
+| Color customization | 12 colors configurable under **Settings → 修改审查** (Review), including the turn-tail card's background, border, and added/removed counts (different defaults); every color has an opacity slider (rgba), persisted in localStorage |
 | Clean sidebar | Hides the Cordis plugin run indicator (`cordis-panel`) from the left sidebar |
 
 ## 📦 Install
@@ -68,6 +68,10 @@ dsh plugin --profile web add dsh-change-review
 | Line numbers / markers | `gutter` | `#57606a` | `#8b949e` |
 | Badge background | `badgeBg` | `#0969da` | `#4493f8` |
 | Badge text | `badgeFg` | `#ffffff` | `#0d1117` |
+| Added count (turn-tail list) | `turnAdd` | `#1a7f37` | `#7ee787` |
+| Removed count (turn-tail list) | `turnDel` | `#cf222e` | `#ffa198` |
+| Card background (turn-tail) | `turnBg` | `rgba(255,183,77,.1)` (light orange 10%) | `rgba(255,183,77,.1)` (light orange 10%) |
+| Card border (turn-tail) | `turnBorder` | `#ffb74d` (light orange) | `#ffb74d` (light orange) |
 
 ## 🧠 Behavior Notes
 
