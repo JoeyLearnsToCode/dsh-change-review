@@ -48,7 +48,7 @@ dsh plugin --profile web add dsh-change-review
 ## 🚀 Usage
 
 1. Open a session and click the **「审查」(Review)** view tab (after「对话」Chat, before「轨迹」Trajectory)
-2. Left: file list (write/edit counts, ~added/~removed stats); right: the selected file's diff. The header toggle switches the scope: **此会话** (all session changes) or **最新一轮** (the latest turn's changes)
+2. Left: file list (write/edit counts, ~added/~removed stats); right: the selected file's diff. The two panes **scroll independently** (scrolling the file list never scrolls the diff preview and vice versa), so you can browse files while keeping the preview in place. The header toggle switches the scope: **此会话** (all session changes) or **最新一轮** (the latest turn's changes)
 3. The badge increments **in real time** when files change; top bar: **↻** refresh, **清空** clear the current session's records
 4. **Revert** (each action asks for confirmation, then writes the file on disk directly):
    - **One change**: the **撤回此项** (revert this) button on each edit/write section header — restores the file to that change's previous content, keeping later changes that do not overlap (overlapping ones are rejected with a hint)
@@ -84,6 +84,10 @@ dsh plugin --profile web add dsh-change-review
 - **Turn bucketing**: each op records the ROOT session turn it happened in by scanning the session log (`turn/start`/`turn/end`) directly — no event-listener dependency, so resumed sessions and multi-turn sessions are attributed correctly; subagent changes count toward the parent turn. Per-turn cards and the review page's **最新一轮** view show only that turn's ops. Records created before this upgrade carry no turn and never appear in per-turn cards (they still show in the 「审查」tab)
 
 ## 📝 Changelog
+
+### v0.2.3 — Independent pane scrolling (2026-08-16)
+
+- **Independent scrolling** — the review page's left file list and the right diff preview now scroll separately (the view fills the available height in every phase and `overscroll-behavior: contain` stops scroll chaining between the panes), making it easier to browse files while reviewing a diff
 
 ### v0.2.2 — Fix plugin registration (2026-08-16)
 
