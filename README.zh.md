@@ -85,6 +85,10 @@ dsh plugin --profile web add dsh-change-review
 
 ## 📝 更新日志
 
+### v0.2.2 — 修复插件注册（2026-08-16）
+
+- **修复插件加载** — 客户端 bundle 改用正确的 `dsh-change-review` id 注册（原为 `@deepseek-ai/dsh-client-ui-diff-review`），并从 `cordis.patch.yml` 移除了重复的 `ui-diff-review` 注入项，插件只会注入一次且能正确加载
+
 ### v0.2.0 — 撤回与轮次内审查（2026-08-15）
 
 - **撤回变更** — 可单独撤回某一项修改（三路合并保留其后无冲突的修改，有重叠则拒绝），或撤回整个文件的全部修改（恢复会话首次修改前状态；会话内新建的文件则删除）。确认后直接改写磁盘

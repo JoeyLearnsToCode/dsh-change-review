@@ -1,5 +1,3 @@
 - insert:
     - id: diff-review
       name: 'dsh-change-review'
-    - id: ui-diff-review
-      name: 'dsh-change-review'

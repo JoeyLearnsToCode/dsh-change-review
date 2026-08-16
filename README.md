@@ -85,6 +85,10 @@ dsh plugin --profile web add dsh-change-review
 
 ## 📝 Changelog
 
+### v0.2.2 — Fix plugin registration (2026-08-16)
+
+- **Fix plugin load** — the client bundle is now registered under the correct `dsh-change-review` id (was `@deepseek-ai/dsh-client-ui-diff-review`), and the duplicate `ui-diff-review` insert was removed from `cordis.patch.yml`, so the plugin is injected once and loads correctly
+
 ### v0.2.0 — Revert & per-turn review (2026-08-15)
 
 - **Revert changes** — undo ONE specific change (3-way merge keeps later non-overlapping changes; overlapping ones are rejected) or the WHOLE file (restore the state before the session's first change; a file created in-session is deleted). Writes directly to disk after confirmation
