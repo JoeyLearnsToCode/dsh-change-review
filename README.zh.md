@@ -21,6 +21,20 @@ DeepSeek Harness（DSH）**会话修改审查**插件：自动追踪会话内的
 | 颜色自定义 | 12 项颜色在 **设置 → 修改审查** 页调整（含对话底部变更列表的背景色、边框色、新增/删除行数颜色），**每个颜色项都带透明度滑块**（支持 rgba），localStorage 持久化 |
 | 侧边栏净化 | 隐藏左侧栏的 Cordis 插件运行提示（cordis-panel） |
 
+## 📸 截图
+
+| 「审查」标签页 — 文件列表 + diff 预览 | 轮次内审查卡片 |
+|:---:|:---:|
+| ![审查标签页](assets/screenshots/review-tab.png) | ![轮次内审查](assets/screenshots/per-turn-card.png) |
+
+| 展开的 diff 与单项撤回 | 颜色自定义：设置 → 修改审查 |
+|:---:|:---:|
+| ![diff 详情](assets/screenshots/diff-detail.png) | ![颜色设置](assets/screenshots/color-settings.png) |
+
+| 插件市场安装 |
+|:---:|
+| ![插件市场](assets/screenshots/plugin-market.png) |
+
 ## 📦 安装
 
 ### 方式一：`dsh plugin add`（npm 发布后）

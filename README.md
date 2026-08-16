@@ -21,6 +21,20 @@ A **session change-review plugin** for DeepSeek Harness (DSH): automatically tra
 | Color customization | 12 colors configurable under **Settings → 修改审查** (Review), including the turn-tail card's background, border, and added/removed counts (different defaults); every color has an opacity slider (rgba), persisted in localStorage |
 | Clean sidebar | Hides the Cordis plugin run indicator (`cordis-panel`) from the left sidebar |
 
+## 📸 Screenshots
+
+| Review tab — file list + diff preview | Per-turn review card |
+|:---:|:---:|
+| ![Review tab](assets/screenshots/review-tab.png) | ![Per-turn review card](assets/screenshots/per-turn-card.png) |
+
+| Expanded diff with per-change revert | Color customization (Settings → 修改审查) |
+|:---:|:---:|
+| ![Diff detail](assets/screenshots/diff-detail.png) | ![Color settings](assets/screenshots/color-settings.png) |
+
+| Installed from the plugin market |
+|:---:|
+| ![Plugin market](assets/screenshots/plugin-market.png) |
+
 ## 📦 Install
 
 ### Option A: `dsh plugin add` (after npm publish)
