@@ -104,7 +104,7 @@ dsh plugin --profile web add dsh-change-review
 - **修复 UI 错乱** — 异步请求竞态（快速切换会话/文件选择）、会话切换后残留旧状态、SSE 重连未同步等问题已全部修复：请求加入序号令牌防串、会话切换时清空所有旧状态、`es.onopen` 重连后重新同步
 - **文件列表按目录分组** — 审查页左侧文件列表改为目录树结构（文件夹可折叠、显示文件数），长列表浏览更清晰
 - **右键上下文菜单** — 审查页文件列表与轮次变更卡片（文件行 + 产物 chips）均支持右键菜单：「打开文件」（在选定编辑器或预览面板中打开）与「在 Finder 中展示」
-- **编辑器选择器** — 在会话头部（会话日志按钮左侧）新增代码编辑器选择器。自动检测已安装的编辑器（VS Code / Cursor / Windsurf / Zed / Xcode / Android Studio / IntelliJ IDEA / PyCharm / WebStorm / GoLand / PhpStorm / RubyMine / CLion / DataGrip / Sublime Text / BBEdit / TextMate / Nova / CotEditor / Vim / Neovim / Emacs 等），通过 `which` 命令与 `/Applications` 路径识别。选中后所有「打开文件」操作均用该编辑器打开；未选择时回退系统默认。选择保存在 localStorage，路由 `/diff-review/open-with-editor` 在主机端派发编辑器命令。
+- **编辑器选择器** — 在会话头部（会话日志按钮左侧）新增代码编辑器选择器。自动检测已安装的编辑器（VS Code / Cursor / Windsurf / Zed / Xcode / Android Studio / IntelliJ IDEA / PyCharm / WebStorm / GoLand / PhpStorm / RubyMine / CLion / DataGrip / Sublime Text / BBEdit / TextMate / Nova / CotEditor / Vim / Neovim / Emacs 等），通过 `which` 命令与 `/Applications` 路径识别。按钮文字显示「用xxx打开」并附带编辑器图标。选中后所有「打开文件」操作均用该编辑器打开；未选择时回退系统默认。选择保存在 localStorage，路由 `/diff-review/open-with-editor` 在主机端派发编辑器命令。
 - **在 Finder 中展示** — 右键菜单新增「在 Finder 中展示」，直接调用 `open -R`（macOS）/ `explorer`（Windows）/ `xdg-open`（Linux）在文件管理器中高亮文件。
 - **文件列表平铺** — 文件列表从按文件夹分组改回平铺展示，文件名与修改统计同行显示，更紧凑。
 - **布局稳定性** — `.drv-view` 在各会话阶段保持稳定
