@@ -99,6 +99,13 @@ dsh plugin --profile web add dsh-change-review
 
 ## 📝 Changelog
 
+### v0.2.4 — File tree, context menu & race fixes (2026-08-17)
+
+- **Fix UI confusion** — async fetch races (rapid session switches / file selection), stale state after session switch, and missing SSE reconnect sync are all fixed with request sequencing tokens, proper state reset, and `es.onopen` resync
+- **Grouped file tree** — the review page's file list now groups files by directory (collapsible folders with file counts), making it easier to navigate projects with many changes
+- **Right-click context menu** — both the review page file list and the per-turn review card (file rows + produced chips) support right-click to **打开文件** (open in Preview panel) or **复制路径** (copy the file path)
+- **Layout hardening** — `.drv-view` remains stable across all conversation phases
+
 ### v0.2.3 — Independent pane scrolling (2026-08-16)
 
 - **Independent scrolling** — the review page's left file list and the right diff preview now scroll separately (the view fills the available height in every phase and `overscroll-behavior: contain` stops scroll chaining between the panes), making it easier to browse files while reviewing a diff
