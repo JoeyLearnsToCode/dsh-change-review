@@ -18,6 +18,7 @@ A **session change-review plugin** for DeepSeek Harness (DSH): automatically tra
 | Revert changes | Undo ONE specific change (later non-overlapping changes are kept) or the WHOLE file (restore the pre-session snapshot; a file created in-session is deleted) — writes directly to disk |
 | Per-turn review | Each turn's tail shows a card with THIS turn's changed files and expandable diffs (with per-op revert), distinct from the session-wide 「审查」tab |
 | Count badge | The 「审查」(Review) tab shows the pending file count; badge background/text colors are customizable |
+| Sidebar integration | When dsh-better-sidebar is installed, a **修改审查** tab is registered in its sidebar (`+` menu, single instance) — coexists with the conversation 「审查」tab and gets an enable/disable switch in the side-card settings automatically. Silently skipped when that plugin is absent; everything else is unaffected |
 | Color customization | 12 colors configurable under **Settings → 修改审查** (Review), including the turn-tail card's background, border, and added/removed counts (different defaults); every color has an opacity slider (rgba), persisted in localStorage |
 | Clean sidebar | Hides the Cordis plugin run indicator (`cordis-panel`) from the left sidebar |
 
@@ -69,6 +70,7 @@ dsh plugin --profile web add dsh-change-review
    - **Whole file**: the **撤回全部修改** (revert all) button at the top of the detail pane — restores the file to its state before this session's first recorded change; a file created in this session is deleted
 5. **Per-turn review**: after each turn, a **本轮变更审查** card appears at the turn's tail listing the files changed in that turn (write/edit counts, ~added/~removed); click a file to expand its diffs and revert a single change. Session-cumulative changes stay in the 「审查」tab — the two views are independent
 6. Colors: **Settings → 修改审查** (8 items + light/dark presets + restore defaults), auto-saved, survives refresh
+7. **Sidebar review**: with dsh-better-sidebar installed, its sidebar `+` menu offers a **修改审查** page (the same file list + diff + revert capability, following the current session). It coexists with the conversation 「审查」tab and can be turned off in the side-card settings
 
 ## 🎨 Color Configuration
 
@@ -98,6 +100,11 @@ dsh plugin --profile web add dsh-change-review
 - **Turn bucketing**: each op records the ROOT session turn it happened in by scanning the session log (`turn/start`/`turn/end`) directly — no event-listener dependency, so resumed sessions and multi-turn sessions are attributed correctly; subagent changes count toward the parent turn. Per-turn cards and the review page's **最新一轮** view show only that turn's ops. Records created before this upgrade carry no turn and never appear in per-turn cards (they still show in the 「审查」tab)
 
 ## 📝 Changelog
+
+### v0.4.0 — dsh-better-sidebar integration (2026-08-19)
+
+- **Sidebar tab** — when dsh-better-sidebar is installed (its `ctx.betterSidebar` service, v0.4.0+), a **修改审查** tab is registered in its sidebar (`+` menu, single instance, follows the current session), reusing the full conversation-tab view (file list / diff / revert / session-latest-turn toggle). Implemented as an optional soft dependency: silently skipped when better-sidebar is absent, everything else unaffected
+- **Free switch** — an enable/disable switch for the tab appears automatically in the side-card settings
 
 ### v0.2.4 — File tree, context menu & race fixes (2026-08-17)
 
@@ -141,6 +148,7 @@ Host (lib/index.js)
 Browser UI (lib/client.js, __ModuleLoader__ bundle)
   · hidden session probe syncs the current session
   · 「审查」view tab + badge
+  · better-sidebar integration: registers a sidebar 修改审查 tab via ctx.betterSidebar (optional soft dependency, deferred through ctx.inject)
   · Settings page「修改审查」color customization
   · EventSource live subscription
 ```
