@@ -63,7 +63,7 @@ dsh plugin --profile web add dsh-change-review
 ## 🚀 Usage
 
 1. Open a session and click the **「审查」(Review)** view tab (after「对话」Chat, before「轨迹」Trajectory)
-2. Left: file list (write/edit counts, ~added/~removed stats); right: the selected file's diff. The two panes **scroll independently** (scrolling the file list never scrolls the diff preview and vice versa), so you can browse files while keeping the preview in place. The header toggle switches the scope: **此会话** (all session changes) or **最新一轮** (the latest turn's changes)
+2. Left: file list (each file's write/edit counts and added/removed line counts shown as icons, **one category per line**); right: the selected file's diff. The two panes **scroll independently** (scrolling the file list never scrolls the diff preview and vice versa), so you can browse files while keeping the preview in place. **Drag the splitter** between the panes to resize them (arrow keys nudge it, double-click restores the default; the width is persisted in localStorage); on narrow screens (≤768px) it falls back to a master-detail single pane. The header toggle switches the scope: **此会话** (all session changes) or **最新一轮** (the latest turn's changes)
 3. The badge increments **in real time** when files change; top bar: **↻** refresh, **清空** clear the current session's records
 4. **Revert** (each action asks for confirmation, then writes the file on disk directly):
    - **One change**: the **撤回此项** (revert this) button on each edit/write section header — restores the file to that change's previous content, keeping later changes that do not overlap (overlapping ones are rejected with a hint)
@@ -110,10 +110,10 @@ dsh plugin --profile web add dsh-change-review
 
 - **Fix UI confusion** — async fetch races (rapid session switches / file selection), stale state after session switch, and missing SSE reconnect sync are all fixed with request sequencing tokens, proper state reset, and `es.onopen` resync
 - **Grouped file tree** — the review page's file list now groups files by directory (collapsible folders with file counts), making it easier to navigate projects with many changes
-- **Right-click context menu** — both the review page file list and the per-turn review card (file rows + produced chips) support right-click to **打开文件** (open in the selected editor or Preview panel) or **在 Finder 中展示** (reveal in file manager)
+- **Right-click context menu** — both the review page file list and the per-turn review card (file rows + produced chips) support right-click to **打开文件** (open in the selected editor or Preview panel) or **在文件资源管理器中展示** (reveal in file manager)
 - **Editor picker** — a code-editor selector is added to the session header (left of the session log button). It auto-detects installed editors via `which` and `/Applications` paths. The button shows "用xxx打开" with the editor's **own app icon** (served by the `/diff-review/editor-icon/:id` route, which reads the .icns from the app bundle and converts it to PNG). The selected editor is used for all **打开文件** actions; with no selection, the OS default handler is used. The choice is persisted in localStorage. The server route `/diff-review/open-with-editor` dispatches the editor command on the Host side. Detection also resolves the app bundle's real executable path (`execPaths`), so editors open via their own binary even when the CLI is not on PATH. File paths are resolved using the recorded `cwd` from the tool execution, ensuring relative paths are correctly converted to absolute paths.
 - **New-workspace session tracking** — summary/detail/turn routes now fall back to the resolved root session id when a direct lookup misses, so new sessions created in a fresh workspace still get their file modifications tracked.
-- **Reveal in Finder** — the context menu adds **在 Finder 中展示**, which reveals the file in the file manager (`open -R` on macOS, `explorer` on Windows, `xdg-open` on Linux).
+- **Reveal in Finder** — the context menu adds **在文件资源管理器中展示**, which reveals the file in the file manager (`open -R` on macOS, `explorer` on Windows, `xdg-open` on Linux).
 - **Flat file list** — the file list now shows files in a flat list (no directory grouping). File names and modification stats are on the same row for a more compact layout.
 - **Layout hardening** — `.drv-view` remains stable across all conversation phases
 
